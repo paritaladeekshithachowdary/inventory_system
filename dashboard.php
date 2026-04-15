@@ -1,3 +1,7 @@
+<?php
+include 'db.php';
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,39 +12,44 @@
 </head>
 <body>
 
-<div class="navbar">
-    <h2>Inventory System</h2>
-    <div>
+<div class="header">
+    <h1>Inventory System</h1>
+    <div class="nav">
         <a href="dashboard.php">Home</a>
         <a href="view_products.php">Products</a>
     </div>
 </div>
 
-<h1 class="title">Dashboard</h1>
+<h2 style="text-align:center;">Dashboard</h2>
 
 <?php
-include 'db.php';
+// 🔹 Fetch total products
 $result = $conn->query("SELECT COUNT(*) as total FROM products");
+
+if (!$result) {
+    die("Query Failed: " . $conn->error);
+}
+
 $row = $result->fetch_assoc();
+$total_products = $row['total'];
 ?>
 
-<h3 style="text-align:center;">Total Products: <?php echo $row['total']; ?></h3>
-
-<div class="container">
-
-    <div class="card">
-        <h3>➕ Add Product</h3>
-        <a href="add_product.html">Go</a>
+<div style="text-align:center; margin-top:20px;">
+    <div style="display:inline-block; padding:20px; border-radius:10px; background:#f4f4f4;">
+        <h3>Total Products</h3>
+        <p style="font-size:30px; font-weight:bold;"><?php echo $total_products; ?></p>
     </div>
-
-    <div class="card">
-        <h3>📦 View Products</h3>
-        <a href="view_products.php">Go</a>
-    </div>
-
 </div>
 
-<footer>
+<br>
+
+<div style="text-align:center;">
+    <a href="view_products.php">
+        <button style="padding:10px 20px; font-size:16px;">View Products</button>
+    </a>
+</div>
+
+<footer style="text-align:center; margin-top:30px;">
     <p>© 2026 Inventory System</p>
 </footer>
 
