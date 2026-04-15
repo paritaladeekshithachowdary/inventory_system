@@ -1,4 +1,8 @@
 <?php
+// 🔴 Show errors (IMPORTANT for Railway debugging)
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 include 'db.php';
 ?>
 
@@ -23,13 +27,16 @@ include 'db.php';
 <h2 style="text-align:center;">Dashboard</h2>
 
 <?php
-// 🔹 Fetch total products
-$result = $conn->query("SELECT COUNT(*) as total FROM products");
+// 🔹 Run query safely
+$sql = "SELECT COUNT(*) as total FROM products";
+$result = $conn->query($sql);
 
+// 🔴 If query fails → show error
 if (!$result) {
     die("Query Failed: " . $conn->error);
 }
 
+// 🔹 Fetch result
 $row = $result->fetch_assoc();
 $total_products = $row['total'];
 ?>
@@ -37,7 +44,9 @@ $total_products = $row['total'];
 <div style="text-align:center; margin-top:20px;">
     <div style="display:inline-block; padding:20px; border-radius:10px; background:#f4f4f4;">
         <h3>Total Products</h3>
-        <p style="font-size:30px; font-weight:bold;"><?php echo $total_products; ?></p>
+        <p style="font-size:30px; font-weight:bold;">
+            <?php echo $total_products; ?>
+        </p>
     </div>
 </div>
 
