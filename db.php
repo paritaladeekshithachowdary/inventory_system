@@ -1,5 +1,11 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "inventory_db");
+$conn = new mysqli(
+    "mysql.railway.internal",
+    "root",
+    "bxcyizHeRtKMmIiCqoEFCkPensTLLMag",
+    "railway",
+    3306
+);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
