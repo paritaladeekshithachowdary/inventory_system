@@ -2,7 +2,6 @@
 <html>
 <head>
     <title>View Products</title>
-
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -19,7 +18,7 @@
 <?php
 include 'db.php';
 
-// 🔹 Build query
+// Build query
 if(isset($_GET['search']) && $_GET['search'] != "") {
     $search = $_GET['search'];
     $sql = "SELECT * FROM products WHERE name LIKE '%$search%'";
@@ -27,15 +26,15 @@ if(isset($_GET['search']) && $_GET['search'] != "") {
     $sql = "SELECT * FROM products";
 }
 
-// 🔹 Execute query
+// Execute query
 $result = $conn->query($sql);
 
-// 🔴 Check query error
+// Check error
 if (!$result) {
     die("Query Error: " . $conn->error);
 }
 
-// 🔴 Check if no data
+// Display data
 if ($result->num_rows == 0) {
     echo "<h3 style='text-align:center;'>No products found</h3>";
 } else {
